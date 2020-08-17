@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Domain\Authentication;
+namespace Tests\Unit\Domain\Equipment;
 
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
 use Borto\Domain\Equipment\ReadCategory;
-use Borto\Domain\Equipment\Repository\CategoryRepository;
+use Borto\Domain\Equipment\Repositories\CategoryRepository;
 use Borto\Infrastructure\DB\Repositories\EloquentCategoryRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;

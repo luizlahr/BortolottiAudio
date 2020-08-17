@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Borto\Domain\Equipment;
 
 use Borto\Domain\Equipment\Exceptions\BrandNotFoundException;
-use Borto\Domain\Equipment\Repository\BrandRepository;
+use Borto\Domain\Equipment\Repositories\BrandRepository;
 
 class DeleteBrand
 {

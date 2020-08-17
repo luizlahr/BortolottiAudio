@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Borto\Domain\Authentication;
 
-use Borto\Domain\Shared\Services\HashMaker;
-use Borto\Domain\Authentication\Repositories\UserRepository;
 use Borto\Domain\Authentication\Entities\UserEntity;
 use Borto\Domain\Authentication\Entities\UserRequestEntity;
 use Borto\Domain\Authentication\Exceptions\DuplicatedUserEmailException;
+use Borto\Domain\Authentication\Repositories\UserRepository;
+use Borto\Domain\Shared\Services\HashMaker;
 
 class CreateUser
 {

@@ -31,6 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/equipments')->group(function () {
         Route::apiResource('/categories', 'CategoryController');
         Route::apiResource('/brands', 'BrandController');
-        // Route::apiResource('/models', 'ModelController');
+        Route::apiResource('/models', 'ModelController');
     });
 });

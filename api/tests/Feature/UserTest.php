@@ -86,7 +86,6 @@ class UserTest extends TestCase
 
     public function testItValidatesItHasAValidEmail()
     {
-        // $this->withoutExceptionHandling();
         $authUser = factory(User::class)->create();
         $header = $this->setAuthHeader($authUser);
 
@@ -112,7 +111,6 @@ class UserTest extends TestCase
 
     public function testItValidatesThePasswordIsConfirmed()
     {
-        // $this->withoutExceptionHandling();
         $authUser = factory(User::class)->create();
         $header = $this->setAuthHeader($authUser);
 
@@ -206,7 +204,6 @@ class UserTest extends TestCase
 
     public function testItCanUpdateOnlyNameUnique()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $header = $this->setAuthHeader($user);
 
@@ -232,7 +229,6 @@ class UserTest extends TestCase
 
     public function testItCanUpdateOnlyEmailWhichDoesNotExist()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $header = $this->setAuthHeader($user);
 
@@ -282,7 +278,6 @@ class UserTest extends TestCase
 
     public function testItCanUpdateOnlyActive()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $header = $this->setAuthHeader($user);
 
@@ -308,7 +303,6 @@ class UserTest extends TestCase
 
     public function testItCanDeleteOtherUsers()
     {
-        $this->withoutExceptionHandling();
         $loggedUser = factory(User::class)->create();
         $header = $this->setAuthHeader($loggedUser);
 

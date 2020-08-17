@@ -14,7 +14,6 @@ class AuthenticationTest extends TestCase
 {
     public function testItCanAuthenticateAnUser()
     {
-        $this->withoutExceptionHandling();
         $email = $this->faker->email;
         $password = $this->faker->password;
 
@@ -92,8 +91,6 @@ class AuthenticationTest extends TestCase
 
     public function testItCanLogout()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
         $token = $this->authenticateUser($user);
 

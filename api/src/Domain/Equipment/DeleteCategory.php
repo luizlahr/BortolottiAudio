@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Borto\Domain\Equipment;
 
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
-use Borto\Domain\Equipment\Repository\CategoryRepository;
+use Borto\Domain\Equipment\Repositories\CategoryRepository;
 
 class DeleteCategory
 {

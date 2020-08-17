@@ -7,7 +7,7 @@ namespace Tests\Integration\DB\Repositories;
 use Borto\Domain\Equipment\Entities\BrandCollection;
 use Borto\Domain\Equipment\Entities\BrandEntity;
 use Borto\Domain\Equipment\Exceptions\BrandNotFoundException;
-use Borto\Domain\Equipment\Repository\BrandRepository;
+use Borto\Domain\Equipment\Repositories\BrandRepository;
 use Borto\Infrastructure\DB\Models\Brand;
 use Borto\Infrastructure\DB\Repositories\EloquentBrandRepository;
 use Tests\TestCase;
@@ -39,6 +39,7 @@ class BrandRepositoryTest extends TestCase
 
         $repository = $this->getRepository();
         $response = $repository->getById($brand->id);
+
         $this->assertInstanceOf(BrandEntity::class, $response);
         $this->assertEquals($entity, $response);
     }
@@ -50,6 +51,7 @@ class BrandRepositoryTest extends TestCase
 
         $repository = $this->getRepository();
         $response = $repository->getById($wrongId);
+
         $this->assertEquals($response, null);
     }
 
@@ -60,6 +62,7 @@ class BrandRepositoryTest extends TestCase
 
         $repository = $this->getRepository();
         $response = $repository->getByName($brand->name);
+
         $this->assertInstanceOf(BrandEntity::class, $response);
         $this->assertEquals($entity, $response);
     }
@@ -71,6 +74,7 @@ class BrandRepositoryTest extends TestCase
 
         $repository = $this->getRepository();
         $response = $repository->getByName($wrongName);
+
         $this->assertEquals($response, null);
     }
 
@@ -79,10 +83,11 @@ class BrandRepositoryTest extends TestCase
         $name = $this->faker->word;
 
         $repository = $this->getRepository();
-        $repository->createBrand([
+        $response = $repository->createBrand([
             "name" => $name,
         ]);
 
+        $this->assertInstanceOf(BrandEntity::class, $response);
         $this->assertDatabaseHas('brands', [
             "name" => $name,
         ]);
@@ -95,10 +100,11 @@ class BrandRepositoryTest extends TestCase
         $name = $this->faker->word;
 
         $repository = $this->getRepository();
-        $repository->updateBrand($brand->id, [
+        $response = $repository->updateBrand($brand->id, [
             "name" => $name,
         ]);
 
+        $this->assertInstanceOf(BrandEntity::class, $response);
         $this->assertDatabaseHas('brands', [
             "id"   => $brand->id,
             "name" => $name,

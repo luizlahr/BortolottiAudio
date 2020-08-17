@@ -2,8 +2,8 @@
 
 namespace Borto\Application\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -25,8 +25,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> ['sometimes','required', 'min:4'],
-            'email'=> ['sometimes','required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
+            'name'   => ['sometimes','required', 'min:4'],
+            'email'  => ['sometimes','required', 'email', Rule::unique('users', 'email')->ignore($this->user)->whereNull('delete_at')],
             'active' => ['sometimes','boolean']
         ];
     }

@@ -10,6 +10,8 @@ use Borto\Domain\Equipment\Exceptions\BrandNotFoundException;
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
 use Borto\Domain\Equipment\Exceptions\DuplicatedBrandException;
 use Borto\Domain\Equipment\Exceptions\DuplicatedCategoryException;
+use Borto\Domain\Equipment\Exceptions\DuplicatedModelException;
+use Borto\Domain\Equipment\Exceptions\ModelNotFoundException;
 use Borto\Domain\Shared\Exceptions\CustomException;
 use Borto\Domain\Shared\Exceptions\NotAllowedException;
 use Illuminate\Auth\AuthenticationException;
@@ -35,10 +37,12 @@ class Handler extends ExceptionHandler
         CategoryNotFoundException::class => Response::HTTP_NOT_FOUND,
         BrandNotFoundException::class    => Response::HTTP_NOT_FOUND,
         UserNotFoundException::class     => Response::HTTP_NOT_FOUND,
+        ModelNotFoundException::class    => Response::HTTP_NOT_FOUND,
         // # 422
         DuplicatedUserEmailException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
         DuplicatedCategoryException::class  => Response::HTTP_UNPROCESSABLE_ENTITY,
         DuplicatedBrandException::class     => Response::HTTP_UNPROCESSABLE_ENTITY,
+        DuplicatedModelException::class     => Response::HTTP_UNPROCESSABLE_ENTITY,
     ];
 
     protected $dontReport = [

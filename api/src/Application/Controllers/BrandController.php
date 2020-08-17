@@ -9,7 +9,7 @@ use Borto\Domain\Equipment\CreateBrand;
 use Borto\Domain\Equipment\DeleteBrand;
 use Borto\Domain\Equipment\Entities\BrandRequestEntity;
 use Borto\Domain\Equipment\ReadBrand;
-use Borto\Domain\Equipment\Repository\BrandRepository;
+use Borto\Domain\Equipment\Repositories\BrandRepository;
 use Borto\Domain\Equipment\UpdateBrand;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

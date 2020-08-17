@@ -7,7 +7,7 @@ namespace Borto\Domain\Equipment;
 use Borto\Domain\Equipment\Entities\BrandEntity;
 use Borto\Domain\Equipment\Entities\BrandRequestEntity;
 use Borto\Domain\Equipment\Exceptions\DuplicatedBrandException;
-use Borto\Domain\Equipment\Repository\BrandRepository;
+use Borto\Domain\Equipment\Repositories\BrandRepository;
 
 class CreateBrand
 {

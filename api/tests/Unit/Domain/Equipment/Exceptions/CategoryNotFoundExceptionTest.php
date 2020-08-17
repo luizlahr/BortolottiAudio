@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Domain\Authentication\Exceptions;
+namespace Tests\Unit\Domain\Equipment\Exceptions;
 
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
 use Borto\Domain\Shared\Exceptions\CustomException;

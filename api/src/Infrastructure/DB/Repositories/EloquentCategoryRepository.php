@@ -7,7 +7,7 @@ namespace Borto\Infrastructure\DB\Repositories;
 use Borto\Domain\Equipment\Entities\CategoryCollection;
 use Borto\Domain\Equipment\Entities\CategoryEntity;
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
-use Borto\Domain\Equipment\Repository\CategoryRepository;
+use Borto\Domain\Equipment\Repositories\CategoryRepository;
 use Borto\Infrastructure\DB\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 

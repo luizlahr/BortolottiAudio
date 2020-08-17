@@ -8,7 +8,7 @@ use Borto\Domain\Equipment\Entities\CategoryEntity;
 use Borto\Domain\Equipment\Entities\CategoryRequestEntity;
 use Borto\Domain\Equipment\Exceptions\CategoryNotFoundException;
 use Borto\Domain\Equipment\Exceptions\DuplicatedCategoryException;
-use Borto\Domain\Equipment\Repository\CategoryRepository;
+use Borto\Domain\Equipment\Repositories\CategoryRepository;
 
 class UpdateCategory
 {

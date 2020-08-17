@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Borto\Domain\Equipment\Repository;
+namespace Borto\Domain\Equipment\Repositories;
 
 use Borto\Domain\Equipment\Entities\CategoryCollection;
 use Borto\Domain\Equipment\Entities\CategoryEntity;

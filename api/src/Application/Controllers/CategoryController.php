@@ -9,7 +9,7 @@ use Borto\Domain\Equipment\CreateCategory;
 use Borto\Domain\Equipment\DeleteCategory;
 use Borto\Domain\Equipment\Entities\CategoryRequestEntity;
 use Borto\Domain\Equipment\ReadCategory;
-use Borto\Domain\Equipment\Repository\CategoryRepository;
+use Borto\Domain\Equipment\Repositories\CategoryRepository;
 use Borto\Domain\Equipment\UpdateCategory;
 use Illuminate\Http\Response;
 

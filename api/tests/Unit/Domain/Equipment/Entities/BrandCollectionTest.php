@@ -8,7 +8,7 @@ use Borto\Domain\Equipment\Entities\BrandCollection;
 use Borto\Domain\Equipment\Entities\BrandEntity;
 use Tests\BaseTestCase;
 
-class BrandCollectionTests extends BaseTestCase
+class BrandCollectionTest extends BaseTestCase
 {
     public function testItCanAddToCollection()
     {

@@ -11,6 +11,7 @@ class CategoryRequestEntityTest extends BaseTestCase
 {
     public function testItCanCreateCategoryRequestEntity()
     {
+        $id = $this->randomId();
         $name = $this->faker->name;
 
         $entity = new CategoryRequestEntity([

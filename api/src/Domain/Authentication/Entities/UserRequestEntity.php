@@ -14,10 +14,10 @@ class UserRequestEntity
     public function __construct(
         array $requestData
     ) {
-        $this->name = $requestData["name"] ?? null;
-        $this->email = $requestData["email"] ?? null;
-        $this->password = $requestData["password"] ?? null;
-        $this->active = $requestData["active"] ?? null;
+        $this->name = optional($requestData)["name"];
+        $this->email = optional($requestData)["email"];
+        $this->password = optional($requestData)["password"];
+        $this->active = optional($requestData)["active"];
     }
 
     public function getName(): ?string

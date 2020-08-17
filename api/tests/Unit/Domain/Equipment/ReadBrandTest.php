@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Domain\Authentication;
+namespace Tests\Unit\Domain\Equipment;
 
 use Borto\Domain\Equipment\Exceptions\BrandNotFoundException;
 use Borto\Domain\Equipment\ReadBrand;
-use Borto\Domain\Equipment\Repository\BrandRepository;
+use Borto\Domain\Equipment\Repositories\BrandRepository;
 use Borto\Infrastructure\DB\Repositories\EloquentBrandRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;

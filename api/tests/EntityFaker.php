@@ -4,11 +4,13 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use Borto\Domain\Authentication\Entities\UserCollection;
-use Borto\Domain\Authentication\Entities\UserEntity;
 use Borto\Domain\Equipment\Entities\BrandEntity;
-use Borto\Domain\Equipment\Entities\CategoryCollection;
+use Borto\Domain\Equipment\Entities\ModelEntity;
 use Borto\Domain\Equipment\Entities\CategoryEntity;
+use Borto\Domain\Authentication\Entities\UserEntity;
+use Borto\Domain\Equipment\Entities\ModelCollection;
+use Borto\Domain\Equipment\Entities\CategoryCollection;
+use Borto\Domain\Authentication\Entities\UserCollection;
 
 trait EntityFaker
 {
@@ -89,6 +91,34 @@ trait EntityFaker
 
         $collection = new CategoryCollection();
         $collection->fill($brands);
+
+        return $collection;
+    }
+
+    /** @return ModelEntity|array<ModelEntity>|ModelCollection */
+    public function makeModels(int $amount = 1, bool $toArray = false, array $data = [])
+    {
+        $models = [];
+
+        for ($current = 1; $current <= $amount; $current++) {
+            array_push($models, new ModelEntity(
+                $data["id"] ?? $this->randomId(),
+                $data["category_id"] ?? $this->randomId(),
+                $data["brand_id"] ?? $this->randomId(),
+                $data["name"] ?? $this->faker->name,
+            ));
+        }
+
+        if (count($models) === 1) {
+            return $models[0];
+        }
+
+        if ($toArray) {
+            return $models;
+        }
+
+        $collection = new ModelCollection();
+        $collection->fill($models);
 
         return $collection;
     }
