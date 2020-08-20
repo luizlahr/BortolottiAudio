@@ -262,12 +262,11 @@ class UserRepositoryTest extends TestCase
 
     private function makeUserCollection(Collection $users): UserCollection
     {
-        $array = array_map(function ($item) {
-            return $this->makeUserEntity($item);
-        }, $users->all());
-
         $userCollection = new UserCollection();
-        $userCollection->fill($array);
+
+        array_map(function ($user) use ($userCollection) {
+            $userCollection->add($user->toEntity());
+        }, $users->all());
 
         return $userCollection;
     }

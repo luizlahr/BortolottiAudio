@@ -30,20 +30,20 @@ class EloquentUserRepository implements UserRepository
     {
         $user = $this->user->find($id);
 
-        return $this->makeEntity($user);
+        return Optional($user)->toEntity() ?? null;
     }
 
     public function getByEmail(string $email): ?UserEntity
     {
         $user = $this->user->where('email', $email)->first();
 
-        return $this->makeEntity($user);
+        return Optional($user)->toEntity() ?? null;
     }
 
     public function createUser(array $userData): UserEntity
     {
         $user = $this->user->create($userData);
-        return $this->makeEntity($user);
+        return $user->toEntity();
     }
 
     public function updateUser(int $id, array $userData): UserEntity
@@ -61,7 +61,7 @@ class EloquentUserRepository implements UserRepository
         }
 
         $user->update($userData);
-        return $this->makeEntity($user);
+        return $user->toEntity();
     }
 
     public function deleteUser(int $id): void
@@ -106,23 +106,8 @@ class EloquentUserRepository implements UserRepository
     {
         $userList = new UserCollection();
         foreach ($users as $user) {
-            $userList->add($this->makeEntity($user));
+            $userList->add($user->toEntity());
         }
         return $userList;
-    }
-
-    public function makeEntity(?User $user): ?UserEntity
-    {
-        if (!$user) {
-            return null;
-        }
-
-        return new UserEntity(
-            $user->id,
-            $user->name,
-            $user->email,
-            $user->password,
-            $user->active
-        );
     }
 }

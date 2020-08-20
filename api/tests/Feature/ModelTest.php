@@ -123,7 +123,7 @@ class ModelTest extends TestCase
         $response = $this->post('/equipments/models', $requestData, $this->authHeader);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonFragment([
-            "name" => "este modelo já existe."
+            "name" => "O campo nome já está sendo utilizado."
         ]);
     }
 
@@ -169,7 +169,7 @@ class ModelTest extends TestCase
         $response = $this->put("/equipments/models/{$model2->id}", $requestData, $this->authHeader);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonFragment([
-            "name" => "este modelo já existe."
+            "name" => "O campo nome já está sendo utilizado."
         ]);
     }
 

@@ -33,4 +33,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('/brands', 'BrandController');
         Route::apiResource('/models', 'ModelController');
     });
+
+    Route::apiResource('/customers', 'CustomerController');
 });

@@ -2,6 +2,8 @@
 
 namespace  Borto\Infrastructure\DB\Models;
 
+use Borto\Domain\Equipment\Entities\ModelEntity;
+use Borto\Domain\Equipment\Entities\ModelFactory;
 use Illuminate\Database\Eloquent\Model as DBModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -26,5 +28,21 @@ class Model extends DBModel
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function toEntity(): ModelEntity
+    {
+        $category = $this->category;
+        $brand = $this->brand;
+
+        $factory = new ModelFactory();
+        return $factory->make(
+            $this->id,
+            $this->category_id,
+            $this->brand_id,
+            $this->name,
+            $category->toEntity(),
+            $brand->toEntity()
+        );
     }
 }

@@ -30,7 +30,7 @@ class BrandCollectionTest extends BaseTestCase
         $this->assertCount($amount, $collection);
     }
 
-    public function testItCanConvertCollectionToArray(): void
+    public function testItCanConvertBrandCollectionToArray(): void
     {
         $id = $this->randomId();
         $name = $this->faker->name;

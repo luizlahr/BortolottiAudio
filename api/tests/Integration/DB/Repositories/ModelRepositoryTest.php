@@ -39,11 +39,10 @@ class ModelRepositoryTest extends TestCase
     public function testItCanGetById()
     {
         $model = factory(Model::class)->create();
-        $entity = $this->makeModelEntity($model);
+        $entity = $model->toEntity();
 
         $repository = $this->getRepository();
         $response = $repository->getById($model->id);
-
         $this->assertInstanceOf(ModelEntity::class, $response);
         $this->assertEquals($entity, $response);
     }
@@ -62,7 +61,7 @@ class ModelRepositoryTest extends TestCase
     public function testItCanGetByName(): void
     {
         $model = factory(Model::class)->create();
-        $entity = $this->makeModelEntity($model);
+        $entity = $model->toEntity();
 
         $repository = $this->getRepository();
         $response = $repository->getByName($model->name);
@@ -213,15 +212,5 @@ class ModelRepositoryTest extends TestCase
     {
         $model = new Model();
         return new EloquentModelRepository($model);
-    }
-
-    private function makeModelEntity(Model $model): ModelEntity
-    {
-        return new ModelEntity(
-            $model->id,
-            $model->category_id,
-            $model->brand_id,
-            $model->name,
-        );
     }
 }

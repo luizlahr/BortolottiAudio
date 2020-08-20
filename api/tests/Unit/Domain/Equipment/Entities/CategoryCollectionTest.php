@@ -31,7 +31,7 @@ class CategoryCollectionTest extends BaseTestCase
         $this->assertCount($amount, $collection);
     }
 
-    public function testItCanConvertCollectionToArray(): void
+    public function testItCanConvertCategoryCollectionToArray(): void
     {
         $id = $this->randomId();
         $name = $this->faker->name;

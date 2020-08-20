@@ -3,9 +3,8 @@
 namespace Borto\Application\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateUserRequest extends FormRequest
+class CreatePersonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => ['sometimes','required', 'min:4'],
-            'email'  => ['sometimes','required', 'email', Rule::unique('users', 'email')->ignore($this->user)->whereNull('deleted_at')],
-            'active' => ['sometimes','boolean']
+            'name' => ['required', 'min:3'],
         ];
     }
 }

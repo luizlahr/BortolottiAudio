@@ -29,7 +29,7 @@ class CreateModelRequest extends FormRequest
                 'required',
                 'min:3',
                 Rule::unique('models', 'name')
-                    ->whereNull("deletd_at")
+                    ->whereNull("deleted_at")
                     ->where("category_id", $this->category_id)
                     ->where("brand_id", $this->brand_id)
             ],

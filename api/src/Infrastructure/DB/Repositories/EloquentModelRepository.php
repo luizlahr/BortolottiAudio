@@ -30,7 +30,7 @@ class EloquentModelRepository implements ModelRepository
 
     public function getAll(): ModelCollection
     {
-        $models = $this->model->orderBy('name', 'asc')->get();
+        $models = $this->model->with(['category', 'brand'])->orderBy('name', 'asc')->get();
         return $this->makeCollection($models);
     }
 
@@ -38,22 +38,14 @@ class EloquentModelRepository implements ModelRepository
     {
         $model = $this->model->find($id);
 
-        if (!$model) {
-            return null;
-        }
-
-        return $this->makeEntity($model);
+        return Optional($model)->toEntity() ?? null;
     }
 
     public function getByName(string $name): ?ModelEntity
     {
         $model = $this->model->where('name', $name)->first();
 
-        if (!$model) {
-            return null;
-        }
-
-        return $this->makeEntity($model);
+        return Optional($model)->toEntity() ?? null;
     }
 
     public function createModel(array $modelData): ModelEntity
@@ -62,7 +54,7 @@ class EloquentModelRepository implements ModelRepository
         $this->validateBrand($modelData["brand_id"]);
 
         $model = $this->model->create($modelData);
-        return $this->makeEntity($model);
+        return $model->toEntity();
     }
 
     public function updateModel(int $id, array $modelData): ModelEntity
@@ -77,7 +69,7 @@ class EloquentModelRepository implements ModelRepository
         }
 
         $model->update($modelData);
-        return $this->makeEntity($model);
+        return $model->toEntity();
     }
 
     public function deleteModel(int $id): void
@@ -105,24 +97,13 @@ class EloquentModelRepository implements ModelRepository
         }
     }
 
-
     /** @param Collection<Model> $models */
     private function makeCollection(Collection $models): ModelCollection
     {
         $modelList = new ModelCollection();
         foreach ($models as $model) {
-            $modelList->add($this->makeEntity($model));
+            $modelList->add($model->toEntity());
         }
         return $modelList;
-    }
-
-    private function makeEntity(Model $model): ModelEntity
-    {
-        return new ModelEntity(
-            $model->id,
-            $model->category_id,
-            $model->brand_id,
-            $model->name,
-        );
     }
 }

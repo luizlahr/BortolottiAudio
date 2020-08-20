@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Integration\Db\Models;
+namespace Tests\Integration\DB\Models;
 
 use Borto\Infrastructure\DB\Models\Brand;
 use Borto\Infrastructure\DB\Models\Category;

@@ -25,7 +25,7 @@ class UpdateModelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => ['required', 'min:3', Rule::unique('models', 'name')->ignore($this->model)->whereNull('delete_at')],
+            'name'        => ['required', 'min:3', Rule::unique('models', 'name')->ignore($this->model)->whereNull('deleted_at')],
             'category_id' => ['required', 'exists:categories,id'],
             'brand_id'    => ['required', 'exists:brands,id'],
         ];

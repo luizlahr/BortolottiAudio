@@ -30,18 +30,22 @@ class ModelCollectionTest extends BaseTestCase
         $this->assertCount($amount, $collection);
     }
 
-    public function testItCanConvertCollectionToArray(): void
+    public function testItCanConvertModelCollectionToArray(): void
     {
         $id = $this->randomId();
         $categoryId = $this->randomId();
         $brandId = $this->randomId();
         $name = $this->faker->name;
+        $category = $this->makeCategories();
+        $brand = $this->makeBrands();
 
         $entity = new ModelEntity(
             $id,
             $categoryId,
             $brandId,
             $name,
+            $category,
+            $brand
         );
 
         $collection = new ModelCollection();
@@ -52,6 +56,8 @@ class ModelCollectionTest extends BaseTestCase
             "category_id" => $categoryId,
             "brand_id"    => $brandId,
             "name"        => $name,
+            "category"    => $category->toArray(),
+            "brand"       => $brand->toArray(),
         ]]);
     }
 }

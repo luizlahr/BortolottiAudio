@@ -27,6 +27,7 @@ class CreateBrandTest extends BaseTestCase
     public function testItCanCreateABrand()
     {
         $brand = $this->makeBrands();
+
         $brandRequest = new BrandRequestEntity([
             "id"   => $this->randomId(),
             "name" => $this->faker->name

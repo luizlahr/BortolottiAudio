@@ -18,6 +18,7 @@ abstract class BaseTestCase extends TestCase
     public function setup(): void
     {
         parent::setup();
-        $this->faker = Faker::create();
+        $this->fakerBR = Faker::create('pt_BR');
+        $this->faker = Faker::create('en_US');
     }
 }

@@ -30,28 +30,20 @@ class EloquentBrandRepository implements BrandRepository
     {
         $brand = $this->brand->find($id);
 
-        if (!$brand) {
-            return null;
-        }
-
-        return $this->makeEntity($brand);
+        return Optional($brand)->toEntity() ?? null;
     }
 
     public function getByName(string $name): ?BrandEntity
     {
         $brand = $this->brand->where('name', $name)->first();
 
-        if (!$brand) {
-            return null;
-        }
-
-        return $this->makeEntity($brand);
+        return Optional($brand)->toEntity() ?? null;
     }
 
     public function createBrand(array $brandData): BrandEntity
     {
         $brand = $this->brand->create($brandData);
-        return $this->makeEntity($brand);
+        return $brand->toEntity();
     }
 
     public function updateBrand(int $id, array $brandData): BrandEntity
@@ -63,7 +55,7 @@ class EloquentBrandRepository implements BrandRepository
         }
 
         $brand->update($brandData);
-        return $this->makeEntity($brand);
+        return $brand->toEntity();
     }
 
     public function deleteBrand(int $id): void
@@ -82,16 +74,8 @@ class EloquentBrandRepository implements BrandRepository
     {
         $brandList = new BrandCollection();
         foreach ($brands as $brand) {
-            $brandList->add($this->makeEntity($brand));
+            $brandList->add($brand->toEntity());
         }
         return $brandList;
-    }
-
-    public function makeEntity(Brand $brand): BrandEntity
-    {
-        return new BrandEntity(
-            $brand->id,
-            $brand->name,
-        );
     }
 }

@@ -30,28 +30,20 @@ class EloquentCategoryRepository implements CategoryRepository
     {
         $category = $this->category->find($id);
 
-        if (!$category) {
-            return null;
-        }
-
-        return $this->makeEntity($category);
+        return Optional($category)->toEntity() ?? null;
     }
 
     public function getByName(string $name): ?CategoryEntity
     {
         $category = $this->category->where('name', $name)->first();
 
-        if (!$category) {
-            return null;
-        }
-
-        return $this->makeEntity($category);
+        return Optional($category)->toEntity() ?? null;
     }
 
     public function createCategory(array $categoryData): CategoryEntity
     {
         $category = $this->category->create($categoryData);
-        return $this->makeEntity($category);
+        return $category->toEntity();
     }
 
     public function updateCategory(int $id, array $categoryData): CategoryEntity
@@ -63,7 +55,7 @@ class EloquentCategoryRepository implements CategoryRepository
         }
 
         $category->update($categoryData);
-        return $this->makeEntity($category);
+        return $category->toEntity();
     }
 
     public function deleteCategory(int $id): void
@@ -82,16 +74,8 @@ class EloquentCategoryRepository implements CategoryRepository
     {
         $categoryList = new CategoryCollection();
         foreach ($categories as $category) {
-            $categoryList->add($this->makeEntity($category));
+            $categoryList->add($category->toEntity());
         }
         return $categoryList;
-    }
-
-    public function makeEntity(Category $category): CategoryEntity
-    {
-        return new CategoryEntity(
-            $category->id,
-            $category->name,
-        );
     }
 }
