@@ -4,7 +4,7 @@ includes:
     - vendor/phpstan/phpstan-mockery/extension.neon
 parameters:
     paths:
-        - src
+        - V1
         - database/seeds
     level: 8
     checkMissingIterableValueType: false
