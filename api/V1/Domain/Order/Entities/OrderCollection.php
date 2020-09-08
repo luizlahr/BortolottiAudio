@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Borto\Domain\Order\Entities;
 
 use ArrayObject;
-use V1\Domain\Order\Entities\OrderEntity;
 
 class OrderCollection extends ArrayObject
 {

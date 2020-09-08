@@ -2,25 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Borto\Domain\Equipment\Entities;
+namespace Borto\Domain\Order\Entities;
 
 use Borto\Domain\Person\Entities\PersonEntity;
-use DateTimeImmutable;
-use V1\Domain\Order\Entities\OrderEntity;
 
 class OrderFactory
 {
     public function make(
         int $id,
-        int $status,
-        float $credit,
+        ?int $status,
+        ?float $credit,
         int $customerId,
-        DateTimeImmutable $createdAt,
-        ?DateTimeImmutable $dueTo,
-        ?DateTimeImmutable $quotedAt,
-        ?DateTimeImmutable $approvedAt,
-        ?DateTimeImmutable $finishedAt,
-        ?DateTimeImmutable $deliveredAt,
+        string $createdAt,
+        ?string $dueTo,
+        ?string $quotedAt,
+        ?string $approvedAt,
+        ?string $finishedAt,
+        ?string $deliveredAt,
         ?PersonEntity $customer
     ): OrderEntity {
         return new OrderEntity(

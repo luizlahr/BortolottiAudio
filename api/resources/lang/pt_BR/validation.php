@@ -180,6 +180,7 @@ return [
         'category'              => 'categoria',
         'brand'                 => 'marca',
         'model'                 => 'model',
+        'customer_id'           => 'cliente',
     ],
 
 ];

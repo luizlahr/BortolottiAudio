@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Borto\Domain\Equipment\Entities;
+namespace Borto\Domain\Order\Entities;
 
 class SaleItemFactory
 {

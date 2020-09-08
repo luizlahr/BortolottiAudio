@@ -2,11 +2,10 @@
 
 namespace  Borto\Infrastructure\DB\Models;
 
-use Borto\Domain\Equipment\Entities\OrderFactory;
-use Faker\Provider\da_DK\Person;
+use Borto\Domain\Order\Entities\OrderEntity;
+use Borto\Domain\Order\Entities\OrderFactory;
 use Illuminate\Database\Eloquent\Model as DBModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use V1\Domain\Order\Entities\OrderEntity;
 
 class Order extends DBModel
 {
@@ -18,36 +17,46 @@ class Order extends DBModel
     ];
 
     protected $casts = [
-        'status'      => 'integer',
-        'credit'      => 'float',
-        'customer_id' => 'integer',
+        'status'       => 'integer',
+        'credit'       => 'float',
+        'customer_id'  => 'integer',
+        'created_at'   => 'string',
+        'due_to'       => 'string',
+        'quoted_at'    => 'string',
+        'approved_at'  => 'string',
+        'delivered_at' => 'string',
+        'finished_at'  => 'string'
     ];
 
-    protected $dates = [
-        'created_at', 'due_to', 'quoted_at', 'approved_at', 'delivered_at', 'finished_at'
-    ];
+    // protected $dates = [
+    //     'created_at', 'due_to', 'quoted_at', 'approved_at', 'delivered_at', 'finished_at'
+    // ];
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class, 'customer_id');
     }
 
     public function toEntity(): OrderEntity
     {
+        $customer = null;
+        if ($this->customer) {
+            $customer = $this->customer->toEntity();
+        }
+
         $factory = new OrderFactory();
         return $factory->make(
             $this->id,
             $this->status,
-            $this->sequencial,
             $this->credit,
             $this->customer_id,
             $this->created_at,
-            $this->dueTo,
-            $this->quoted_at,
-            $this->approved_at,
-            $this->finished_at,
-            $this->delivered_at,
-            $this->customer
+            $this->due_to ?? null,
+            $this->quoted_at ?? null,
+            $this->approved_at ?? null,
+            $this->finished_at ?? null,
+            $this->delivered_at ?? null,
+            $customer
         );
     }
 }

@@ -42,8 +42,8 @@ class PersonEntityTest extends BaseTestCase
 
         $entity = new PersonEntity(
             $id,
-            $business,
             $supplier,
+            $business,
             $name,
             $nickname,
             $email,
@@ -101,8 +101,8 @@ class PersonEntityTest extends BaseTestCase
 
         $entity = new PersonEntity(
             $id,
-            $business,
             $supplier,
+            $business,
             $name,
             $nickname,
             $email,
@@ -116,8 +116,8 @@ class PersonEntityTest extends BaseTestCase
 
         $this->assertEquals($entity->toArray(), [
             "id"       => $id,
-            "business" => $business,
             "supplier" => $supplier,
+            "business" => $business,
             "name"     => $name,
             "nickname" => $nickname,
             "email"    => $email,

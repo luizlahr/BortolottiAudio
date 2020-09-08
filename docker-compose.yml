@@ -29,7 +29,7 @@ services:
       - "/app/node_modules"
       - "./web/:/app"
     ports:
-      - 3000:3000
+      - 3001:3000
   #Nginx Service
   webserver:
     image: nginx:alpine
@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "88:80"
+      - "91:80"
       - "443:443"
     volumes:
       - ./api:/var/www

@@ -36,4 +36,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/customers', 'CustomerController');
     Route::apiResource('/suppliers', 'SupplierController');
+
+    Route::apiResource('/orders', 'OrderController')->except('update');
+
+    Route::patch('/orders/{order}/quote', 'QuoteOrderController@update');
+    Route::patch('/orders/{order}/create', 'MakeOrderController@update');
+    Route::patch('/orders/{order}/approve', 'ApproveOrderController@update');
+    Route::patch('/orders/{order}/disapprove', 'DisapproveOrderController@update');
+    Route::patch('/orders/{order}/finish', 'FinishOrderController@update');
+    Route::patch('/orders/{order}/delivery', 'DeliveryOrderController@update');
+    Route::patch('/orders/{order}/cancel', 'QuoteOrderController@update');
+
+    Route::apiResource('/orders/{order}/informations', 'InformationController')->except(['update', 'read']);
 });

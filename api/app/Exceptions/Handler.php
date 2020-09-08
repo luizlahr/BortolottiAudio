@@ -12,6 +12,9 @@ use Borto\Domain\Equipment\Exceptions\DuplicatedBrandException;
 use Borto\Domain\Equipment\Exceptions\DuplicatedCategoryException;
 use Borto\Domain\Equipment\Exceptions\DuplicatedModelException;
 use Borto\Domain\Equipment\Exceptions\ModelNotFoundException;
+use Borto\Domain\Order\Exceptions\OrderNotFoundException;
+use Borto\Domain\Order\Exceptions\UnableToChangeOrderStatusException;
+use Borto\Domain\Order\Exceptions\UnableToDeleteOrderException;
 use Borto\Domain\Person\Exceptions\CustomerNotFoundException;
 use Borto\Domain\Person\Exceptions\SupplierNotFoundException;
 use Borto\Domain\Shared\Exceptions\CustomException;
@@ -34,7 +37,9 @@ class Handler extends ExceptionHandler
         AuthenticationException::class     => Response::HTTP_UNAUTHORIZED,
         InvalidCredentialsException::class => Response::HTTP_UNAUTHORIZED,
         // # 403
-        NotAllowedException::class => Response::HTTP_FORBIDDEN,
+        NotAllowedException::class                => Response::HTTP_FORBIDDEN,
+        UnableToDeleteOrderException::class       => Response::HTTP_FORBIDDEN,
+        UnableToChangeOrderStatusException::class => Response::HTTP_FORBIDDEN,
         // # 404
         CategoryNotFoundException::class => Response::HTTP_NOT_FOUND,
         BrandNotFoundException::class    => Response::HTTP_NOT_FOUND,
@@ -42,6 +47,7 @@ class Handler extends ExceptionHandler
         ModelNotFoundException::class    => Response::HTTP_NOT_FOUND,
         CustomerNotFoundException::class => Response::HTTP_NOT_FOUND,
         SupplierNotFoundException::class => Response::HTTP_NOT_FOUND,
+        OrderNotFoundException::class    => Response::HTTP_NOT_FOUND,
         // # 422
         DuplicatedUserEmailException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
         DuplicatedCategoryException::class  => Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -83,7 +89,7 @@ class Handler extends ExceptionHandler
         }
 
         if (env('APP_ENV') === 'local') {
-            dd('handler ', $exception);
+            dd('Handler - Uncaught Exception ', $exception);
         }
 
         return $this->sendError('An unexpected error occurred! Try again later.', null, Response::HTTP_INTERNAL_SERVER_ERROR);

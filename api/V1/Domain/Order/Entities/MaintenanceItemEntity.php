@@ -2,7 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Borto\Domain\Equipment\Entities;
+namespace Borto\Domain\Order\Entities;
+
+use Borto\Domain\Equipment\Entities\BrandEntity;
+use Borto\Domain\Equipment\Entities\CategoryEntity;
+use Borto\Domain\Equipment\Entities\ModelEntity;
 
 class MaintenanceItemEntity implements OrderItem
 {

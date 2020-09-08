@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace V1\Domain\Order\Entities;
+namespace Borto\Domain\Order\Entities;
 
 use Borto\Domain\Person\Entities\PersonEntity;
 use DateTimeImmutable;
@@ -16,44 +16,47 @@ class OrderEntity
     const ORDER_DISAPPROVED = 5;
     const ORDER_FINISHED = 6;
     const ORDER_DELIVERED = 7;
+    const ORDER_CANCELED = 8;
 
     const STATUS_NAMES = [
-        "Rascunho"             => self::ORDER_DRAFT,
-        "Aguardando Orçamento" => self::ORDER_WAITING_QUOTE,
-        "Aguardando Aprovação" => self::ORDER_QUOTED,
-        "Aprovado"             => self::ORDER_APPROVED,
-        "Reprovado"            => self::ORDER_DISAPPROVED,
-        "Finalizado"           => self::ORDER_FINISHED,
-        "Entregue"             => self::ORDER_DELIVERED,
+        self::ORDER_DRAFT         => "Rascunho",
+        self::ORDER_WAITING_QUOTE => "Aguardando Orçamento",
+        self::ORDER_QUOTED        => "Aguardando Aprovação",
+        self::ORDER_APPROVED      => "Aprovado",
+        self::ORDER_DISAPPROVED   => "Reprovado",
+        self::ORDER_FINISHED      => "Finalizado",
+        self::ORDER_DELIVERED     => "Entregue",
+        self::ORDER_CANCELED      => "Cancelada",
     ];
 
+
     private int $id;
-    private int $status;
-    private float $credit;
+    private ?int $status;
+    private ?float $credit;
     private int $customerId;
-    private DateTimeImmutable $createdAt;
-    private ?DateTimeImmutable $dueTo;
-    private ?DateTimeImmutable $quotedAt;
-    private ?DateTimeImmutable $approvedAt;
-    private ?DateTimeImmutable $finishedAt;
-    private ?DateTimeImmutable $deliveredAt;
+    private string $createdAt;
+    private ?string $dueTo;
+    private ?string $quotedAt;
+    private ?string $approvedAt;
+    private ?string $finishedAt;
+    private ?string $deliveredAt;
     private ?PersonEntity $customer;
 
     public function __construct(
         int $id,
-        int $status,
-        float $credit,
+        ?int $status,
+        ?float $credit,
         int $customerId,
-        DateTimeImmutable $createdAt,
-        ?DateTimeImmutable $dueTo,
-        ?DateTimeImmutable $quotedAt,
-        ?DateTimeImmutable $approvedAt,
-        ?DateTimeImmutable $finishedAt,
-        ?DateTimeImmutable $deliveredAt,
+        string $createdAt,
+        ?string $dueTo,
+        ?string $quotedAt,
+        ?string $approvedAt,
+        ?string $finishedAt,
+        ?string $deliveredAt,
         ?PersonEntity $customer
     ) {
         $this->id = $id;
-        $this->status = $status;
+        $this->status = $status ?? 1;
         $this->credit = $credit;
         $this->customerId = $customerId;
         $this->createdAt = $createdAt;
@@ -75,7 +78,7 @@ class OrderEntity
         return $this->status;
     }
 
-    public function getStatus(): int
+    public function getStatus(): string
     {
         return self::STATUS_NAMES[$this->status];
     }
@@ -115,6 +118,11 @@ class OrderEntity
         return $this->status === self::ORDER_DELIVERED;
     }
 
+    public function isCanceled(): bool
+    {
+        return $this->status === self::ORDER_CANCELED;
+    }
+
     public function getCredit(): float
     {
         return $this->credit;
@@ -125,34 +133,54 @@ class OrderEntity
         return $this->customerId;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->formatDate(new DateTimeImmutable($this->createdAt));
     }
 
-    public function getDueTo(): DateTimeImmutable
+    public function getDueTo(): ?string
     {
-        return $this->dueTo;
+        if ($this->dueTo === null) {
+            return null;
+        }
+
+        return $this->formatDate(new DateTimeImmutable($this->dueTo));
     }
 
-    public function getQuotedAt(): DateTimeImmutable
+    public function getQuotedAt(): ?string
     {
-        return $this->quotedAt;
+        if ($this->quotedAt === null) {
+            return null;
+        }
+
+        return $this->formatDate(new DateTimeImmutable($this->quotedAt));
     }
 
-    public function getApprovedAt(): DateTimeImmutable
+    public function getApprovedAt(): ?string
     {
-        return $this->approvedAt;
+        if ($this->approvedAt === null) {
+            return null;
+        }
+
+        return $this->formatDate(new DateTimeImmutable($this->approvedAt));
     }
 
-    public function getFinishedAt(): DateTimeImmutable
+    public function getFinishedAt(): ?string
     {
-        return $this->finishedAt;
+        if ($this->finishedAt === null) {
+            return null;
+        }
+
+        return $this->formatDate(new DateTimeImmutable($this->finishedAt));
     }
 
-    public function getDeliveredAt(): DateTimeImmutable
+    public function getDeliveredAt(): ?string
     {
-        return $this->deliveredAt;
+        if ($this->deliveredAt === null) {
+            return null;
+        }
+
+        return $this->formatDate(new DateTimeImmutable($this->deliveredAt));
     }
 
     public function getCustomer(): PersonEntity
@@ -163,17 +191,27 @@ class OrderEntity
     public function toArray(): array
     {
         return [
-            "id"          => $this->id,
-            "status_id"   => $this->status,
-            "status"      => $this->getStatus(),
-            "credit"      => $this->credit,
-            "customerId"  => $this->customerId,
-            "createdAt"   => $this->createdAt,
-            "dueTo"       => $this->dueTo,
-            "quotedAt"    => $this->quotedAt,
-            "approvedAt"  => $this->approvedAt,
-            "deliveredAt" => $this->deliveredAt,
-            "customer"    => $this->customer,
+            "id"           => $this->id,
+            "status_id"    => $this->status,
+            "status"       => $this->getStatus(),
+            "credit"       => $this->credit,
+            "customer_id"  => $this->customerId,
+            "created_at"   => $this->getCreatedAt(),
+            "due_to"       => $this->getDueTo(),
+            "quoted_at"    => $this->getquotedAt(),
+            "approved_at"  => $this->getApprovedAt(),
+            "finished_at"  => $this->getFinishedAt(),
+            "delivered_at" => $this->getDeliveredAt(),
+            "customer"     => $this->customer->toArray(),
         ];
+    }
+
+    private function formatDate(?DateTimeImmutable $date): ?string
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        return $date->format('Y-m-d H:i:s');
     }
 }
