@@ -4,12 +4,15 @@ declare(strict_types = 1);
 
 namespace Borto\Application\Controllers;
 
+use Borto\Application\Requests\CreateInformationRequest;
 use Borto\Application\Traits\ApiResponse;
-use Borto\Domain\Order\CreateInformation;
 use Borto\Domain\Order\DTOs\InformationRequestDTO;
-use Borto\Domain\Order\Repositories\InformationRepository;
+use Borto\Domain\Order\Information\CreateInformation;
+use Borto\Domain\Order\Information\DeleteInformation;
+use Borto\Domain\Order\Information\Entities\InformationEntity;
+use Borto\Domain\Order\Information\ListInformation;
+use Borto\Domain\Order\Information\Repositories\InformationRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class InformationController extends Controller
@@ -17,34 +20,31 @@ class InformationController extends Controller
     use ApiResponse;
 
     private InformationRepository $informationRepository;
+    private ListInformation $listInformation;
     private CreateInformation $createInformation;
-    // private UpdateModel $updateModel;
-    // private ReadModel $readModel;
-    // private DeleteModel $deleteModel;
+    private DeleteInformation $deleteInformation;
 
     public function __construct(
         InformationRepository $informationRepository,
-        CreateInformation $createInformation
-        // UpdateModel $updateModel,
-        // ReadModel $readModel,
-        // DeleteModel $deleteModel
+        ListInformation $listInformation,
+        CreateInformation $createInformation,
+        DeleteInformation $deleteInformation
     ) {
         $this->createInformation = $createInformation;
-        // $this->updateModel = $updateModel;
-        // $this->readModel = $readModel;
-        // $this->deleteModel = $deleteModel;
+        $this->deleteInformation = $deleteInformation;
         $this->informationRepository = $informationRepository;
     }
 
     public function index(int $order): JsonResponse
     {
-        $informations = $this->informationRepository->getByOrderId($order);
+        $informations = $this->listInformation->execute($order);
         return $this->sendResponse($informations->toArray());
     }
 
-    public function store(int $order, Request $request): JsonResponse
+    public function store(int $order, CreateInformationRequest $request): JsonResponse
     {
-        $informationData = $request->only('type', 'text');
+        $informationData = $request->only('text');
+        $informationData['type'] = InformationEntity::TYPE_USER;
         $informationData['order_id'] = $order;
         $informationData['user_id'] = null;
 
@@ -53,9 +53,9 @@ class InformationController extends Controller
         return $this->sendResponse($model->toArray(), Response::HTTP_CREATED);
     }
 
-    public function destroy(int $id): JsonResponse
+    public function destroy(int $order, int $information): JsonResponse
     {
-        $this->deleteInformation->handle($id);
+        $this->deleteInformation->execute($information);
         return $this->sendResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

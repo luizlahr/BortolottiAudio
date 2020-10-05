@@ -15,6 +15,7 @@ use Borto\Domain\Equipment\Exceptions\ModelNotFoundException;
 use Borto\Domain\Order\Exceptions\OrderNotFoundException;
 use Borto\Domain\Order\Exceptions\UnableToChangeOrderStatusException;
 use Borto\Domain\Order\Exceptions\UnableToDeleteOrderException;
+use Borto\Domain\Order\Exceptions\UnableToDeleteSystemInformationException;
 use Borto\Domain\Person\Exceptions\CustomerNotFoundException;
 use Borto\Domain\Person\Exceptions\SupplierNotFoundException;
 use Borto\Domain\Shared\Exceptions\CustomException;
@@ -37,9 +38,10 @@ class Handler extends ExceptionHandler
         AuthenticationException::class     => Response::HTTP_UNAUTHORIZED,
         InvalidCredentialsException::class => Response::HTTP_UNAUTHORIZED,
         // # 403
-        NotAllowedException::class                => Response::HTTP_FORBIDDEN,
-        UnableToDeleteOrderException::class       => Response::HTTP_FORBIDDEN,
-        UnableToChangeOrderStatusException::class => Response::HTTP_FORBIDDEN,
+        NotAllowedException::class                      => Response::HTTP_FORBIDDEN,
+        UnableToDeleteOrderException::class             => Response::HTTP_FORBIDDEN,
+        UnableToChangeOrderStatusException::class       => Response::HTTP_FORBIDDEN,
+        UnableToDeleteSystemInformationException::class => Response::HTTP_FORBIDDEN,
         // # 404
         CategoryNotFoundException::class => Response::HTTP_NOT_FOUND,
         BrandNotFoundException::class    => Response::HTTP_NOT_FOUND,

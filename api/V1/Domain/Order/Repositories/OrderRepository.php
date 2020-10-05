@@ -6,9 +6,9 @@ namespace Borto\Domain\Order\Repositories;
 
 use Borto\Domain\Order\Entities\OrderCollection;
 use Borto\Domain\Order\Entities\OrderEntity;
-use Borto\Domain\Order\Entities\OrderItem;
-use Borto\Domain\Order\Entities\OrderItemCollection;
 use Borto\Domain\Order\Entities\OrderRequestEntity;
+use Borto\Domain\Order\Item\Entities\OrderItem;
+use Borto\Domain\Order\Item\Entities\OrderItemCollection;
 
 interface OrderRepository
 {

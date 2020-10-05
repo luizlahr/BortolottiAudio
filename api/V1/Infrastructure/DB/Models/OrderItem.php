@@ -2,10 +2,9 @@
 
 namespace  Borto\Infrastructure\DB\Models;
 
-use Borto\Domain\Equipment\Entities\MaintenanceItemEntity;
-use Borto\Domain\Equipment\Entities\MaintenanceItemFactory;
-use Borto\Domain\Equipment\Entities\SaleItemEntity;
-use Borto\Domain\Equipment\Entities\SaleItemFactory;
+use Borto\Domain\Order\Item\Entities\MaintenanceItemFactory;
+use Borto\Domain\Order\Item\Entities\OrderItem as ItemEntity;
+use Borto\Domain\Order\Item\Entities\SaleItemFactory;
 use Illuminate\Database\Eloquent\Model as DBModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,7 +24,7 @@ class OrderItem extends DBModel
         return $this->hasMany(Model::class);
     }
 
-    /** @return MaintenanceItemEntity|SaleItemEntity */
+    /** @return ItemEntity */
     public function toEntity()
     {
         if ($this->type === self::TYPE_MAINTENANCE) {

@@ -2,7 +2,7 @@
 
 namespace  Borto\Infrastructure\DB\Models;
 
-use Borto\Domain\Order\Entities\InformationEntity;
+use Borto\Domain\Order\Information\Entities\InformationEntity;
 use Illuminate\Database\Eloquent\Model as DBModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,6 +29,7 @@ class Information extends DBModel
         return new InformationEntity(
             $this->id,
             $this->order_id,
+            $this->user_id,
             $this->type,
             $this->text,
             $this->created_at

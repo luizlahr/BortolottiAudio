@@ -6,6 +6,7 @@ use Borto\Domain\Order\Entities\OrderEntity;
 use Borto\Domain\Order\Entities\OrderFactory;
 use Illuminate\Database\Eloquent\Model as DBModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends DBModel
 {
@@ -28,13 +29,14 @@ class Order extends DBModel
         'finished_at'  => 'string'
     ];
 
-    // protected $dates = [
-    //     'created_at', 'due_to', 'quoted_at', 'approved_at', 'delivered_at', 'finished_at'
-    // ];
-
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Person::class, 'customer_id');
+    }
+
+    public function informations(): HasMany
+    {
+        return $this->hasMany(Information::class);
     }
 
     public function toEntity(): OrderEntity

@@ -5,9 +5,10 @@ declare(strict_types = 1);
 namespace Borto\Infrastructure\DB\Repositories;
 
 use Borto\Domain\Order\DTOs\InformationRequestDTO;
-use Borto\Domain\Order\Entities\InformationCollection;
-use Borto\Domain\Order\Entities\InformationEntity;
-use Borto\Domain\Order\Repositories\InformationRepository;
+use Borto\Domain\Order\Exceptions\InformationNotFoundException;
+use Borto\Domain\Order\Information\Entities\InformationCollection;
+use Borto\Domain\Order\Information\Entities\InformationEntity;
+use Borto\Domain\Order\Information\Repositories\InformationRepository;
 use Borto\Infrastructure\DB\Models\Information;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -42,7 +43,7 @@ class EloquentInformationRepository implements InformationRepository
 
     public function createInformation(InformationRequestDTO $informationRequest): InformationEntity
     {
-        $information = $this->information->create($informationRequest);
+        $information = $this->information->create($informationRequest->toArray());
         return $information->toEntity();
     }
 
@@ -51,7 +52,7 @@ class EloquentInformationRepository implements InformationRepository
         $information = $this->information->find($id);
 
         if (empty($information)) {
-            //TODO: throw information not found
+            throw new InformationNotFoundException();
         }
 
         $information->delete();

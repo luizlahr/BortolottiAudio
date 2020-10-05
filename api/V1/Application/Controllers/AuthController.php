@@ -2,15 +2,14 @@
 
 namespace Borto\Application\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Borto\Domain\Authentication\Logout;
-use Borto\Application\Traits\ApiResponse;
-use Borto\Domain\Shared\Services\AuthInfo;
-use Borto\Application\Controllers\Controller;
-use Borto\Domain\Authentication\AuthenticateUser;
 use Borto\Application\Requests\AuthenticationRequest;
+use Borto\Application\Traits\ApiResponse;
+use Borto\Domain\Authentication\AuthenticateUser;
 use Borto\Domain\Authentication\Entities\CredentialsEntity;
+use Borto\Domain\Authentication\Logout;
+use Borto\Domain\Shared\Services\AuthInfo;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -28,6 +27,7 @@ class AuthController extends Controller
 
     public function authenticate(AuthenticationRequest $request)
     {
+        Log::debug($request);
         $credentials = new CredentialsEntity($request->email, $request->password);
         $userData = $this->authenticateUser->authenticate($credentials);
         return $this->sendResponse($userData);

@@ -19,17 +19,14 @@ services:
     networks:
       - app-network
   #React Service
-  web:
-    stdin_open: true
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    container_name: web
-    volumes:
-      - "/app/node_modules"
-      - "./web/:/app"
-    ports:
-      - 3001:3000
+  # web:
+  #   image: node
+  #   container_name: web
+  #   volumes:
+  #     - "/app/node_modules"
+  #     - "./routes:/app"
+  #   ports:
+  #     - 3001:3000
   #Nginx Service
   webserver:
     image: nginx:alpine

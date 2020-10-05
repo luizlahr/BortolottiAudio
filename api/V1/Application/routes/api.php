@@ -19,9 +19,9 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('guest')->group(function () {
+// Route::middleware('guest')->group(function () {
     Route::post('/auth', 'AuthController@authenticate');
-});
+// });
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -48,4 +48,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/orders/{order}/cancel', 'QuoteOrderController@update');
 
     Route::apiResource('/orders/{order}/informations', 'InformationController')->except(['update', 'read']);
+    Route::apiResource('/orders/{order}/items', 'ItemController')->except(['read']);
 });

@@ -5,14 +5,12 @@ declare(strict_types = 1);
 namespace Borto\Infrastructure\DB\Repositories;
 
 use Borto\Domain\Order\DTOs\OrderStatusDTO;
-use Borto\Domain\Order\Entities\MaintenanceItemEntity;
 use Borto\Domain\Order\Entities\OrderCollection;
 use Borto\Domain\Order\Entities\OrderEntity;
-use Borto\Domain\Order\Entities\OrderItem;
-use Borto\Domain\Order\Entities\OrderItemCollection;
 use Borto\Domain\Order\Entities\OrderRequestEntity;
-use Borto\Domain\Order\Entities\SaleItemEntity;
 use Borto\Domain\Order\Exceptions\OrderNotFoundException;
+use Borto\Domain\Order\Item\Entities\OrderItem;
+use Borto\Domain\Order\Item\Entities\OrderItemCollection;
 use Borto\Domain\Order\Repositories\OrderRepository;
 use Borto\Infrastructure\DB\Models\Order;
 use Borto\Infrastructure\DB\Models\OrderItem as ItemModel;
