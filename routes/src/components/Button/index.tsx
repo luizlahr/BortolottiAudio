@@ -8,9 +8,15 @@ interface iButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'default' | 'primary';
 }
 
-function Button({ children, loading, color = 'default' }: iButton) {
+function Button({ children, loading, color = 'default', ...props }: iButton) {
   return (
-    <Container color={color} loading={loading ? 1 : 0} disabled={loading}>
+    <Container
+      color={color}
+      loading={loading ? 1 : 0}
+      disabled={loading}
+      className="ll-button"
+      {...props}
+    >
       <span className="btn-loading">
         <RefreshCw />
       </span>

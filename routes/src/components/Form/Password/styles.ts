@@ -8,6 +8,7 @@ export const Container = styled.div<iContainer>`
   display: flex;
   flex: 1;
   height: 40px;
+  max-height: 40px;
 
   border-width: 1px;
   border-style: solid;

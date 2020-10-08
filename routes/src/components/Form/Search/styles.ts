@@ -10,6 +10,7 @@ interface iContainer {
 export const Container = styled.div<iContainer>`
   display: flex;
   flex: 1;
+  align-items: center;
   height: 40px;
   max-height: 40px;
 
@@ -20,7 +21,7 @@ export const Container = styled.div<iContainer>`
 
   transition: border-color 0.2s linear;
   
-  padding: 0 16px; 
+  padding: 0 8px 0 16px;
   margin: 4px 0 12px;
 
   input { 
@@ -36,7 +37,17 @@ export const Container = styled.div<iContainer>`
     }
 
     cursor: inherit;
+  }
 
+  svg { 
+    display: flex;
+    height: 20px;
+    width: 20px;
+    color: ${props => props.theme.textLight};
+
+    cursor: pointer;
+
+    margin-left: 4px;
   }
 
   ${props => props.width && css`

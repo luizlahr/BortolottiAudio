@@ -1581,6 +1581,13 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-7.2.1.tgz#2ad4e844175a3738cb9e7064be5ea070b8863a1c"
   integrity sha512-oZ0Ib5I4Z2pUEcoo95cT1cr6slco9WY7yiPpG+RGNkj8YcYgJnM7pXmYmorNOReh8MIGcKSqXyeGjxnr8YiZbA==
 
+"@types/antd@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/antd/-/antd-1.0.0.tgz#f04e2a84efd9ea937366cd3dfbada5d3c949471d"
+  integrity sha1-8E4qhO/Z6pNzZs09+62l08lJRx0=
+  dependencies:
+    antd "*"
+
 "@types/aria-query@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
@@ -2252,7 +2259,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@^4.6.6:
+antd@*, antd@^4.6.6:
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/antd/-/antd-4.6.6.tgz#79b3e22ba6ddefaa2948d00d86d2c6130b3562fb"
   integrity sha512-ruqzFFyohjEEp+Qg5VzBzFgDjqdj0FoPt3V/bGtLjeuQXPqFrPs+y4WWWmqi3ydGmN4VPIGBwd3CybQDrZAN3g==

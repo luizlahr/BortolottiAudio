@@ -13,6 +13,7 @@ export const Container = styled.div<iContainer>`
   left: 0;
 
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.2s linear;
 
   /* background: ${props => props.theme.overlayColor}; */
@@ -22,5 +23,6 @@ export const Container = styled.div<iContainer>`
 
   ${props => props.show && css`
     opacity: 1;
+    pointer-events: auto;
   `}
 `;
