@@ -1,44 +1,46 @@
-import React, { useState, useCallback } from 'react';
-import FormikInput, { InputProps } from 'formik-antd/es/input';
+import React, { InputHTMLAttributes, useState } from 'react';
+import { Eye, EyeOff } from 'react-feather';
+import { Container } from './styles';
+import AntInput from 'antd/es/input';
 import 'antd/es/input/style/css';
 
-import { InputStyles } from './styles';
+function Password({
+  type,
+  placeholder,
+  name,
+  size,
+  ...rest
+}: InputHTMLAttributes<HTMLInputElement>) {
+  const [focus, setFocus] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
-interface IInput extends InputProps {
-  uc?: boolean;
-}
+  const handleFocus = () => {
+    setFocus(true);
+  };
 
-const Input: React.FC<IInput> = ({ uc: uncontrolled, ...props }) => {
-  const [hasFocus, setHasFocus] = useState<boolean>(false);
-  const [isDirty, setIsDirty] = useState<boolean>(false);
+  const handleBlur = () => {
+    setFocus(false);
+  };
 
-  const handleFocus = useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
-      setIsDirty(!!event.target.value);
-      setHasFocus(true);
-    },
-    [],
-  );
-
-  const handleBlur = useCallback(
-    (event: React.FocusEvent<HTMLInputElement>) => {
-      setIsDirty(!!event.target.value);
-      setHasFocus(false);
-    },
-    [],
-  );
+  const handleShowPass = () => {
+    setShowPass(!showPass);
+  };
 
   return (
-    <>
-      <InputStyles />
-      <FormikInput.Password
-        onBlur={handleBlur}
+    <Container focus={focus}>
+      <AntInput
+        type={showPass ? 'text' : 'password'}
+        name={name}
+        {...rest}
         onFocus={handleFocus}
-        className="ll-input"
-        {...props}
+        onBlur={handleBlur}
       />
-    </>
+      <span className="password-sufix" onClick={handleShowPass}>
+        {showPass === true && <EyeOff />}
+        {showPass === false && <Eye />}
+      </span>
+    </Container>
   );
-};
+}
 
-export default Input;
+export default Password;

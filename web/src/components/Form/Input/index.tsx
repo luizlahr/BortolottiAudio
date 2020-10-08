@@ -1,38 +1,34 @@
-import React, { useState, useCallback } from 'react';
-import FormikInput, { InputProps } from 'formik-antd/es/input'
-import 'antd/es/input/style/css'
+import React, { useState } from 'react';
+import AntInput, { InputProps } from 'antd/es/input';
+import 'antd/es/input/style/css';
 
-import { InputStyles } from './styles'
+import { Container } from './styles';
 
-interface IInput extends InputProps {
-  uc?: boolean
-}
+interface iInput extends InputProps {}
 
-const Input: React.FC<IInput> = ({ uc: uncontrolled, ...props }) => {
-  const [hasFocus, setHasFocus] = useState<boolean>(false);
-  const [isDirty, setIsDirty] = useState<boolean>(false);
+function Input({ type, placeholder, name, ...rest }: iInput) {
+  const [focus, setFocus] = useState(false);
 
-  const handleFocus = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setIsDirty(!!event.target.value);
-    setHasFocus(true);
-  }, []);
+  const handleFocus = () => {
+    setFocus(true);
+  };
 
-  const handleBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-    setIsDirty(!!event.target.value);
-    setHasFocus(false);
-  }, [])
+  const handleBlur = () => {
+    setFocus(false);
+  };
 
   return (
-    <>
-      <InputStyles />
-      <FormikInput
-        onBlur={handleBlur}
+    <Container focus={focus}>
+      <AntInput
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        {...rest}
         onFocus={handleFocus}
-        className={`ll-input`}
-        {...props}
+        onBlur={handleBlur}
       />
-    </>
+    </Container>
   );
-};
+}
 
 export default Input;

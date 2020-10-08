@@ -1,110 +1,83 @@
-import React, { useCallback, useState } from 'react';
-import { Formik, FormikHelpers, FormikHandlers } from 'formik';
-import { FiMail, FiLock } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
-import Form from 'formik-antd/es/form';
-import 'formik-antd/es/form/style';
-import Yup from 'utils/yup';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers';
 
-import { Container, Banner, FormWrapper } from './styles';
-import theme from 'styles/theme';
+import api from 'services/api';
+import { Container, UserContent, UserImage, SignInBox, Logo } from './styles';
 import Input from 'components/Form/Input';
 import Password from 'components/Form/Password';
-import Button from 'components/Button';
-import logoImage from 'assets/logo.svg';
-import { useAuth } from 'hooks/auth.hook';
 import FormControl from 'components/Form/FormControl';
-import handler from 'exceptions/handler';
+import { Link } from 'react-router-dom';
+import errorHandler from 'exceptions/handler';
 
-interface ICredentials {
+type Inputs = {
   email: string;
   password: string;
-}
-
-const initialValues: ICredentials = {
-  email: '',
-  password: '',
 };
 
-const signInSchema = Yup.object().shape({
-  email: Yup.string().required().email(),
-  password: Yup.string().required(),
+const loginSchema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
 });
 
-const SignIn: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { signIn } = useAuth();
-  const history = useHistory();
+export default function Component() {
+  const { handleSubmit, errors, control } = useForm<Inputs>({
+    resolver: yupResolver(loginSchema),
+  });
 
-  const handleSubmit = async (
-    credentials: ICredentials,
-    { setErrors }: any,
-  ): Promise<void> => {
-    setLoading(true);
+  const onSubmit = async (values: Inputs) => {
+    console.log(values);
     try {
-      await signInSchema.validate(credentials, {
-        abortEarly: false,
-      });
-
-      await signIn(credentials, setErrors);
-      history.push('/');
+      const { data } = await api.post('/auth', values);
+      console.log(data);
     } catch (exception) {
-      const params = {
-        setter: setErrors,
-      };
-      handler({ exception, params });
+      errorHandler({ exception });
     }
-    setLoading(false);
   };
 
   return (
     <Container>
-      <FormWrapper>
-        <img src={logoImage} alt="Bortolotti Audio" className="logo" />
-        <Formik
-          onSubmit={handleSubmit}
-          initialValues={initialValues}
-          enableReinitialize
-        >
-          {({ errors }) => (
-            <Form>
-              <FormControl field="email" error={errors.email}>
-                <Input
-                  prefix={<FiMail color={theme.textLight} />}
-                  name="email"
-                  placeholder="E-mail"
-                  autoComplete="email"
-                  autoFocus={true}
-                />
-              </FormControl>
-              <FormControl field="password" error={errors.password}>
-                <Password
-                  type="password"
-                  prefix={<FiLock color={theme.textLight} />}
-                  name="password"
-                  autoComplete="none"
-                  placeholder="Senha"
-                />
-              </FormControl>
-              <Button
-                block
-                solid
-                loading={loading}
-                showLoading={loading}
-                color="primary"
-                type="submit"
-                style={{ marginTop: '16px' }}
-              >
-                Entrar
-              </Button>
-              <Link to="/">Esqueci minha senha</Link>
-            </Form>
-          )}
-        </Formik>
-      </FormWrapper>
-      <Banner />
+      <UserContent>
+        <header>
+          <Logo>Bortolotti Audio</Logo>
+        </header>
+        <SignInBox>
+          <h1>Autenticação</h1>
+          <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+            <FormControl label="E-mail" error={errors.email?.message}>
+              <Controller
+                as={Input}
+                control={control}
+                name="email"
+                defaultValue=""
+                autoFocus
+                autoComplete="off"
+              />
+            </FormControl>
+            <FormControl label="Senha" error={errors.password?.message}>
+              <Controller
+                as={Password}
+                control={control}
+                name="password"
+                defaultValue=""
+                type="password"
+              />
+            </FormControl>
+            <div className="actions">
+              <Link to="/">Esqueceu sua senha?</Link>
+              <button type="submit">Entrar</button>
+            </div>
+          </form>
+        </SignInBox>
+        <footer>@2020 Todos os direitos reservados</footer>
+      </UserContent>
+      <UserImage>
+        <span>
+          by <Link to="http://www.unsplash.com">Unsplash</Link>
+        </span>
+      </UserImage>
     </Container>
   );
-};
-
-export default SignIn;
+}

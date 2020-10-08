@@ -58,8 +58,8 @@ export const MenuToggler = styled.div<ISidebar>`
   svg {
     transition: transform 0.4s;
     ${(props) =>
-      props.show &&
-      css`
+    props.show &&
+    css`
         transform: rotate(180deg);
       `};
   }

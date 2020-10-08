@@ -1,11 +1,13 @@
-FROM node:alpine
+FROM node
+
+RUN mkdir /app
 
 WORKDIR /app
 
-COPY package.json /app
+COPY ./routes/package.json /app
 
-RUN yarn install
+RUN yarn
 
-COPY ./web /app
+COPY ./routes /app
 
-CMD ["yarn", "run", "start"]
+RUN yarn start

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 
-import { Container, Nav, MenuToggler } from './styles';
+import { Container, InnerAside, Nav, MenuToggler } from './styles';
 
 import Logo from 'components/Logo';
 import { useMenu } from 'hooks/menu.hook';
