@@ -115,25 +115,23 @@ class PersonEntityTest extends BaseTestCase
         );
 
         $this->assertEquals($entity->toArray(), [
-            "id"       => $id,
-            "supplier" => $supplier,
-            "business" => $business,
-            "name"     => $name,
-            "nickname" => $nickname,
-            "email"    => $email,
-            "mobile"   => $mobile,
-            "whatsapp" => $whatsapp,
-            "phone"    => $phone,
-            "nid"      => $nid,
-            "ssn"      => $ssn,
-            "address"  => [
-                "zipcode"      => $zipcode,
-                "street"       => $street,
-                "streetNumber" => $streetNumber,
-                "neighborhood" => $neighborhood,
-                "city"         => $city,
-                "state"        => $state
-            ]
+            "id"           => $id,
+            "supplier"     => $supplier,
+            "business"     => $business,
+            "name"         => $name,
+            "nickname"     => $nickname,
+            "email"        => $email,
+            "mobile"       => $mobile,
+            "whatsapp"     => $whatsapp,
+            "phone"        => $phone,
+            "nid"          => $nid,
+            "ssn"          => $ssn,
+            "zipcode"      => $zipcode,
+            "street"       => $street,
+            "streetNumber" => $streetNumber,
+            "neighborhood" => $neighborhood,
+            "city"         => $city,
+            "state"        => $state
         ]);
     }
 }

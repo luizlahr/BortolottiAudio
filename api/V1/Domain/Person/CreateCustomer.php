@@ -20,6 +20,7 @@ class CreateCustomer
     public function execute(PersonRequestEntity $request): PersonEntity
     {
         $request->setCustomer();
+
         return $this->personRepository->createPerson($request);
     }
 }

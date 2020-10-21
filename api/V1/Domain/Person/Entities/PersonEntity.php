@@ -115,7 +115,7 @@ class PersonEntity
 
     public function toArray()
     {
-        return [
+        return array_merge([
             "id"       => $this->id,
             "supplier" => $this->supplier,
             "business" => $this->business,
@@ -127,7 +127,6 @@ class PersonEntity
             "phone"    => $this->phone,
             "nid"      => $this->nid,
             "ssn"      => $this->ssn,
-            "address"  => $this->address->toArray()
-        ];
+        ], $this->address->toArray());
     }
 }

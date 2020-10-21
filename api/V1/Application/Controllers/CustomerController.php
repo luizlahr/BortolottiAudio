@@ -50,6 +50,8 @@ class CustomerController extends Controller
 
     public function store(CreatePersonRequest $request): JsonResponse
     {
+        $data = $request->validated();
+
         $customerRequest = new PersonRequestEntity($request->all());
         $customerRequest->setCustomer();
 

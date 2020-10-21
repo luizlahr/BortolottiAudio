@@ -24,7 +24,15 @@ class CreatePersonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:3'],
+            'name'     => ['required', 'min:3'],
+            'business' => ['required', 'boolean']
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merger([
+            'business' => (bool) $this->business
+        ]);
     }
 }

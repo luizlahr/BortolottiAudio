@@ -26,6 +26,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -76,6 +77,9 @@ class Handler extends ExceptionHandler
         $type = get_class($exception);
 
         // dd($exception);
+        if ($exception instanceof NotFoundHttpException) {
+            return $this->sendError('A URL informada não existe!', null, Response::HTTP_NOT_FOUND);
+        }
 
         if ($exception instanceof CustomException && isset(self::STATUS_MAP[$type])) {
             return $this->renderCustomException($exception, self::STATUS_MAP[$type]);
@@ -91,7 +95,7 @@ class Handler extends ExceptionHandler
         }
 
         if (env('APP_ENV') === 'local') {
-            dd('Handler - Uncaught Exception ', $exception);
+            return $this->sendError($exception->getMessage(), null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $this->sendError('An unexpected error occurred! Try again later.', null, Response::HTTP_INTERNAL_SERVER_ERROR);
